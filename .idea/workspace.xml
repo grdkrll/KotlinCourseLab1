@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d2c29d21-8f81-4252-8ffa-8976a266f4d4" name="Changes" comment="made selection sort in Kotlin">
+    <list default="true" id="d2c29d21-8f81-4252-8ffa-8976a266f4d4" name="Changes" comment="added binary-search tree">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
     </list>
@@ -15,6 +15,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2Fm0m4nZxaALalLey18SfcrepEp" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -48,7 +51,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665084941797</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added binary-search tree">
+      <created>1665155637409</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1665155637409</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -64,6 +74,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="made selection sort in Kotlin" />
-    <option name="LAST_COMMIT_MESSAGE" value="made selection sort in Kotlin" />
+    <MESSAGE value="added binary-search tree" />
+    <option name="LAST_COMMIT_MESSAGE" value="added binary-search tree" />
   </component>
 </project>

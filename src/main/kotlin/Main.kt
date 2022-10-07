@@ -87,10 +87,11 @@ fun main() {
     println()
     simpleList.selectionSort().forEach { print("$it ") }
     println()
-    val arr: List<Int> = readln().split(' ').map { it.toInt() }
     val tree = Tree()
-    for (e in arr) {
+    var e = readln().toInt()
+    while(e != 0) {
         tree.add(e)
+        e = readln().toInt()
     }
     tree.withTwoChildren().forEach { println(it) }
 }
