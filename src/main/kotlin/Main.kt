@@ -41,9 +41,25 @@ class Node(value: Int) {
 
 class Tree {
     private var tree = mutableListOf<Node>()
-
-    fun add(e: Int) {
-        if (tree.isEmpty()) {
+    fun findElement(e: Int): Int {
+        if(tree.isEmpty()) {
+            return -1
+        }
+        var i = 0
+        while (tree[i].v != e && (tree[i].v > e && tree[i].l != null || tree[i].v < e && tree[i].r != null)) {
+            i = when (tree[i].v > e) {
+                true -> tree[i].l!!
+                false -> tree[i].r!!
+            }
+        }
+        return if(tree[i].v == e) {
+            i
+        } else {
+            -1
+        }
+    }
+    fun addElement(e: Int) {
+        if(tree.isEmpty()) {
             tree.add(Node(e))
             return
         }
@@ -74,6 +90,18 @@ class Tree {
         r.selectionSort()
         return r.toList()
     }
+
+    fun containsElement(e: Int) : Boolean {
+        return findElement(e) != -1
+    }
+
+    fun size(): Int {
+        return tree.size
+    }
+
+    fun isEmpty(): Boolean {
+        return tree.isEmpty()
+    }
 }
 
 fun main() {
@@ -88,10 +116,16 @@ fun main() {
     simpleList.selectionSort().forEach { print("$it ") }
     println()
     val tree = Tree()
+    println("Is the tree currently empty? : ${tree.isEmpty()}")
     var e = readln().toInt()
     while(e != 0) {
-        tree.add(e)
+        tree.addElement(e)
         e = readln().toInt()
     }
+    print("Elements with two children: ")
     tree.withTwoChildren().forEach { println(it) }
+    println("The tree currently holds ${tree.size()} elements")
+    println("Is the tree currently empty? : ${tree.isEmpty()}")
+    println("Element 3 has an index of: ${tree.findElement(3)}")
+    println("Does the tree contain an element of 10? : ${tree.containsElement(10)}")
 }
