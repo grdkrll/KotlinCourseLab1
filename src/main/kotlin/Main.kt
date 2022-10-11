@@ -29,8 +29,8 @@ fun <T : Comparable<T>> MutableList<T>.selectionSort(): MutableList<T> {
 
 class Node(value: Int) {
     var v: Int
-    var l: Int?
-    var r: Int?
+    var l: Node?
+    var r: Node?
 
     init {
         v = value
@@ -40,67 +40,71 @@ class Node(value: Int) {
 }
 
 class Tree {
-    private var tree = mutableListOf<Node>()
-    fun findElement(e: Int): Int {
-        if(tree.isEmpty()) {
-            return -1
+    private var size = 0
+    private var root: Node = Node(0)
+    fun findElement(e: Int, v: Node = root): Node? {
+        if(isEmpty()) {
+            return null
         }
-        var i = 0
-        while (tree[i].v != e && (tree[i].v > e && tree[i].l != null || tree[i].v < e && tree[i].r != null)) {
-            i = when (tree[i].v > e) {
-                true -> tree[i].l!!
-                false -> tree[i].r!!
-            }
+        if(v.v > e) {
+            return if(v.l == null) null else findElement(e, v.l!!)
+        } else if(v.v < e) {
+            return if(v.r == null) null else findElement(e, v.r!!)
         }
-        return if(tree[i].v == e) {
-            i
-        } else {
-            -1
-        }
+        return v
     }
-    fun addElement(e: Int) {
-        if(tree.isEmpty()) {
-            tree.add(Node(e))
+    fun addElement(e: Int, v: Node = root) {
+        if(isEmpty()) {
+            ++size
+            root = Node(e)
             return
         }
-        var i = 0
-        while (tree[i].v != e && (tree[i].v > e && tree[i].l != null || tree[i].v < e && tree[i].r != null)) {
-            i = when (tree[i].v > e) {
-                true -> tree[i].l!!
-                false -> tree[i].r!!
+        if(v.v > e) {
+            if(v.l == null) {
+                ++size
+                v.l = Node(e)
+            } else {
+                addElement(e, v.l!!)
             }
-        }
-        if (tree[i].v > e) {
-            tree[i].l = tree.size
-        } else if (tree[i].v < e) {
-            tree[i].r = tree.size
+        } else if(v.v < e) {
+            if (v.r == null) {
+                ++size
+                v.r = Node(e)
+            } else {
+                addElement(e, v.r!!)
+            }
         } else {
             return
         }
-        tree.add(Node(e))
     }
 
-    fun withTwoChildren(): List<Int> {
-        val r = mutableListOf<Int>()
-        for (e in tree) {
-            if (e.l != null && e.r != null) {
-                r.add(e.v)
-            }
+    fun withTwoChildren(v: Node = root): List<Node> {
+        if(isEmpty()) {
+            return listOf()
         }
-        r.selectionSort()
-        return r.toList()
+        val r = mutableListOf<Node>()
+        if(v.l != null && v.r != null) {
+            r += v
+        }
+        if(v.l != null) {
+            r += withTwoChildren(v.l!!)
+        }
+        if(v.r != null) {
+            r += withTwoChildren(v.r!!)
+        }
+        return r
     }
 
     fun containsElement(e: Int) : Boolean {
-        return findElement(e) != -1
+        return findElement(e) != null
     }
 
     fun size(): Int {
-        return tree.size
+        return size
     }
 
     fun isEmpty(): Boolean {
-        return tree.isEmpty()
+        return size == 0
     }
 }
 
@@ -123,7 +127,8 @@ fun main() {
         e = readln().toInt()
     }
     print("Elements with two children: ")
-    tree.withTwoChildren().forEach { println(it) }
+    tree.withTwoChildren().forEach { print("${it.v} ") }
+    println()
     println("The tree currently holds ${tree.size()} elements")
     println("Is the tree currently empty? : ${tree.isEmpty()}")
     println("Element 3 has an index of: ${tree.findElement(3)}")
